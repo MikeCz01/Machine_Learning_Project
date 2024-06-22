@@ -9,7 +9,7 @@ width = 300
 height = 300
 ruta_train = 'perros_y_gatos/train/'
 ruta_predict = 'perros_y_gatos/predict/'
-
+'''
 train_x = []
 train_y = []
 
@@ -21,7 +21,7 @@ for i in os.listdir(ruta_train):
         resized_image = cv2.resize(img, (width, height))
         
         train_x.append(resized_image)
-        if i == 'gatos':
+        if i == 'cats':
                 train_y.append([0,1])
         else :
                 train_y.append([1,0]) 
@@ -54,12 +54,10 @@ epochs = 100
 model.fit(x_data, y_data, epochs = epochs)
 
 models.save_model(model, 'mimodelo.keras')
-
-
+'''
+print("")
 model = models.load_model('mimodelo.keras')
-
-
-my_image = cv2.imread('perros_y_gatos/test/22.jpg    ')
+my_image = cv2.imread('perros_y_gatos/test/39.jpg    ')
 my_image = cv2.resize(my_image, (width, height))
 
 result = model.predict(np.array([my_image]))[0]
