@@ -7,8 +7,8 @@ import random
 
 width = 300
 height = 300
-ruta_train = 'cats_and_dogs/train/'
-ruta_predict = 'cats_and_dogs/predict/'
+ruta_train = 'perros_y_gatos/train/'
+ruta_predict = 'perros_y_gatos/predict/'
 
 train_x = []
 train_y = []
@@ -19,14 +19,12 @@ for i in os.listdir(ruta_train):
     for j in os.listdir(ruta_train + i):
         img = cv2.imread(ruta_train+i+'/'+j)
         resized_image = cv2.resize(img, (width, height))
-
+        
         train_x.append(resized_image)
-
-        for x,y in enumerate(labels):
-            if y == i:
-                array = np.zeros(len(labels))
-                array[x]=1
-                train_y.append(array)
+        if i == 'gatos':
+                train_y.append([0,1])
+        else :
+                train_y.append([1,0]) 
 
 x_data = np.array(train_x)
 y_data = np.array(train_y)
@@ -61,7 +59,7 @@ models.save_model(model, 'mimodelo.keras')
 model = models.load_model('mimodelo.keras')
 
 
-my_image = cv2.imread('cats_and_dogs/test/22.jpg    ')
+my_image = cv2.imread('perros_y_gatos/test/22.jpg    ')
 my_image = cv2.resize(my_image, (width, height))
 
 result = model.predict(np.array([my_image]))[0]
